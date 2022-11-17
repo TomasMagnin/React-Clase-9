@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 export default function TestEventos() {
 
-  {/* Por lo genereal se programa la funcion antes del Return */}
+  /* Por lo genereal se programa la funcion antes del Return */
   /* El nombre handle se usa por convencion */
   /* La primera funcion que se ejecuta a raiz de un evento */
   /* El evento sintetico de React, es un evento que crea React por encima del evento normal y le añade muchas funcionaldiades para que sea compatible en todos los exploradores */
@@ -82,48 +82,105 @@ export default function TestEventos() {
       },[]); */
 
 
+      /* USAMOS EL STOP PROPAGATION, PARA DETENER LA PROPAGACION DEL PADRE AL HIJO */
 
         /* Burbujeos con varios onClick, debemos parara la propagacion, siempre que tengamos varios clicks se van a propagar en el pa */
 
        /* Ej - 1 */
 
-    function handleClickDivAbuelo(e) {
+  /*   function handleClickDivAbuelo(e) {
         alert("click en el Abuelo");
+        e.stopPropagation();                // Con esta linea detenemos la propagacion del evento  en el padre, abuelo, etc.
     }
     function handleClickDivPadre(e) {
       alert("click en el Padre");
+      e.stopPropagation();                 // Con esta linea detenemos la propagacion del evento en el padre, abuelo, etc.
     }
     function handleClickPHhijo(e) {
-      alert("click en el hijo");
-    }
+      alert("click en el hijo");          // Con esta linea detenemos la propagacion del evento  en el padre, abuelo, etc.
+      e.stopPropagation();
+    } */
 
+
+
+
+
+
+
+
+    /* Segunda parte Handle Input */
+
+    // Lo que ingresamos en el Input TEL lo vemos por consola. 
+
+    function handleChangeInput(e) { 
+      console.log(e);                 // Con este log vemos el evento
+      console.log(e.target);          // Con este log vemos que etiqueta disparo el evento.
+      console.log(e.target.value);    // Ahora vemos el evento, la etiqueta que lo disoparo y el valor.
+  }
+
+
+  // Lo que ingresamos en el Input TEL 2 lo vemos por consola.
+
+    function handleonKeyDown(e) {
+      e.preventDefault();
+  }
+
+
+
+
+   // Lo que ingresamos en el Input TEL 3 lo vemos por consola.
+
+   function handleKeyDown(e) {    // Anula lo que ponemos aca
+    e.preventDefault();         
+}
 
 
   return (
 
-    
+    /* Eventos Handle clic y prevent default*/
 
-    <div onClick={handleClickDivAbuelo} style={{ border: "1px solid red", margin: "10px" }}>
+  //  <div onClick={handleClickDivAbuelo} style={{ border: "1px solid red", margin: "10px" }}>
 
-    Abuelo
+   // Abuelo
 
-      <div onClick={handleClickDivPadre} style={{ border: "1px solid green", margin: "10px" }}>
-        Padre
+   //   <div onClick={handleClickDivPadre} style={{ border: "1px solid green", margin: "10px" }}>
+      //  Padre
         
-        <br />
+       // <br />
 
-        {/* El objetivo <p> es el target donde se ejecuto el evento, onClick es el evento, y luego esta la funcion */}
-        {/* Window seria el target, resize el evento, y handlewindowResize la funcion.  */}
-        {/* En el target p, escuchamos el evento Onclick y ejecutamos la funcion handleclick */}
+      //  {/* El objetivo <p> es el target donde se ejecuto el evento, onClick es el evento, y luego esta la funcion */}
+      //  {/* Window seria el target, resize el evento, y handlewindowResize la funcion.  */}
+      //  {/* En el target p, escuchamos el evento Onclick y ejecutamos la funcion handleclick */}
 
-       <div> <p onClick={handleClickPHhijo}  style={{ border: "1px solid blue", margin: "10px" }}> Hijo </p>  
+     //  <div> <p onClick={handleClickPHhijo}  style={{ border: "1px solid blue", margin: "10px" }}> Hijo </p>  
 
-        </div>
-        <br />
+       // </div>
+        //<br />
 
-        {/* <div onClick={handleClickP} >Test Eventos</div> */}
+      //  {/* <div onClick={handleClickP} >Test Eventos</div> */}
           
-      </div>
-    </div>
+     // </div>
+    //</div>
+
+
+
+
+
+
+    /* Segunda parte Handle Input */
+      <>
+        Nombre: 
+        <input type="text" />
+        Email: 
+        <input type="text"  onChange={handleonKeyDown}/>
+        Tel: 
+        <input type="text" onChange={handleChangeInput} />
+
+        Tel 2:
+        <input type="text"  onChange={handleonKeyDown}/>
+
+        Tel 3:
+        <input type="text"  onChange={handleKeyDown}/>
+      </>
   )
 }
