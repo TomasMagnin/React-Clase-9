@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 
 export default function TestEventos() {
@@ -108,31 +108,57 @@ export default function TestEventos() {
 
 
 
-    /* Segunda parte Handle Input */
+    /* ----------------- Segunda parte Handle Input ----------------- */
 
     // Lo que ingresamos en el Input TEL lo vemos por consola. 
 
     function handleChangeInput(e) { 
+     
       console.log(e);                 // Con este log vemos el evento
       console.log(e.target);          // Con este log vemos que etiqueta disparo el evento.
       console.log(e.target.value);    // Ahora vemos el evento, la etiqueta que lo disoparo y el valor.
-  }
+      e.preventDefault();             // Cada vez que tocamos una tecla se llama una funcion y se dispara un evento que no deja que toquemos nada en la opcion Tel 4
+
+    }
 
 
-  // Lo que ingresamos en el Input TEL 2 lo vemos por consola.
+  // Lo que ingresamos en el Input TEL 2 usando OnChange no se guarda nada en consola.
 
-    function handleonKeyDown(e) {
-      e.preventDefault();
-  }
+    function handleonKeyDownTel2(e) {
+      e.preventDefault();               // Cada vez que tocamos una tecla el evento se dispara y no guarda nada, en la consola se reflaja que no se guarda nada
+      console.log(e);                   // Buscamos dentro del evento  
+    }
 
 
 
 
-   // Lo que ingresamos en el Input TEL 3 lo vemos por consola.
+   // Lo que ingresamos en el Input TEL 3 lo usando onKeyDown lo bloquea en pantalla.
 
-   function handleKeyDown(e) {    // Anula lo que ponemos aca
-    e.preventDefault();         
+   function handleKeyDownTel3(e) {    // Anula lo que ponemos aca en la pantalla, bloquea el campo input, cada tecla que tocamos se dispara el evento.
+   // e.preventDefault(e); 
+  //  console.log(e);                   // Buscamos dentro del evento   datos      
 }
+
+
+
+/* Siempre que pongamos o quitemos algo, tenemos que guardarlo en un estado */
+
+const [tel, setTel] = useState("+351");
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+
+console.log(tel);
+
+
+
+
+/* -------------    3Ra Parte   Intercambiavilidad   -------------------------- */
+
+// Le pasamos por propiedad a nuestro componenente lo que necesita
+
+// Por ejemplo el ItemCount, dentro del ItemDetail, le pasamos por props lo que necesita.
+
+
 
 
   return (
@@ -172,15 +198,30 @@ export default function TestEventos() {
         Nombre: 
         <input type="text" />
         Email: 
-        <input type="text"  onChange={handleonKeyDown}/>
+        <input type="text"  onChange={handleChangeInput}/>
         Tel: 
         <input type="text" onChange={handleChangeInput} />
 
         Tel 2:
-        <input type="text"  onChange={handleonKeyDown}/>
+        <input type="text"  onChange={handleonKeyDownTel2}/>
 
         Tel 3:
-        <input type="text"  onChange={handleKeyDown}/>
+        <input type="text"  onKeyDown={handleKeyDownTel3}/>
+        
+        Tel 4:
+        <input value={tel} onChange={(e) => setTel(e.target.value)}  onKeyDown={handleKeyDownTel3} type="text"/>
+        
+        {/* Con value={tel}, hacemos que la varible tel, inicialice con el valor del estado, que le declaramos al crear el */}
+        
+        {/* El valor de la caja de texto es el estado, y si cambia la caja de texto cambio el estado. */}
+       {/* La caja tiene el valor del estado y si cambia la caja cambia el valor del estado  tambien*/}
       </>
+  
+
+
+
+
+
+  
   )
 }
